@@ -1,0 +1,10 @@
+repo: 
+    - pussinboots/vagrant-devel
+    - pussinboots/vagrant-devel-full
+folder: /vagrant/project/angularjs-crypto
+deps: 
+    - sublime3
+    - firefox
+    - nodejs
+    - heroku
+    - travis
