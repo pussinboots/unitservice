@@ -101,12 +101,24 @@
 			<artifactId>junit</artifactId>
 			<version>${version.junit}</version>
 			<scope>test</scope>
-		</dependency>
-		  <dependency>
-		        <groupId>org.seleniumhq.selenium</groupId>
-		        <artifactId>selenium-server</artifactId>
-		        <version>2.46.0</version>
-		    </dependency>  
+			</dependency>
+			  <dependency>
+			        <groupId>org.seleniumhq.selenium</groupId>
+			        <artifactId>selenium-server</artifactId>
+			        <version>2.46.0</version>
+			    </dependency>
+			    <dependency>
+				<groupId>info.cukes</groupId>
+				<artifactId>cucumber-java</artifactId>
+				<version>${cucumber.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.cukes</groupId>
+				<artifactId>cucumber-junit</artifactId>
+				<version>${cucumber.version}</version>
+				<scope>test</scope>
+			</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
