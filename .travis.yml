@@ -1,4 +1,4 @@
-language:java 
+language: java 
 deploy:
   provider: heroku
   api_key:
