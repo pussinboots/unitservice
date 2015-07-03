@@ -28,7 +28,7 @@
 		<version.guice>3.0</version.guice>
 		<version.junit>4.10</version.junit>
 		<version.servlet>2.5</version.servlet>
-		<cucumber.version>1.2.2</cucumber>
+		<cucumber.version>1.2.2</cucumber.version>
 	</properties>
 
 	<dependencies>
