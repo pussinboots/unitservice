@@ -61,7 +61,8 @@ public final class JUnitJarRunner {
                 jf = new JarFile(JARFILE);
                 for (Enumeration<JarEntry> e = jf.entries(); e.hasMoreElements();) {
                     String name = e.nextElement().getName();
-                    if (name.startsWith("suneido/") && name.startsWith("Test.class")
+                    System.out.println(name);
+                    if (name.contains("Test")
                             && !name.contains("$"))
                         classFiles.add(name.replaceAll("/", ".")
                                 .substring(0, name.length() - 6));
