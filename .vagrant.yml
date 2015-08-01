@@ -8,3 +8,4 @@ deps:
     - nodejs
     - heroku
     - travis
+    - idea13
