@@ -1,8 +1,13 @@
 package fra.unit.runner;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 import org.junit.runner.RunWith;
+import org.junit.runner.notification.Failure;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 import java.util.*;
@@ -12,53 +17,52 @@ import java.lang.reflect.*;
 /**
  * Discovers all JUnit tests in a jar file and runs them in a suite.
  */
-@RunWith(JUnitJarRunner.AllTestsRunner.class)
 public final class JUnitJarRunner {
     private final static String JARFILE = "target/unitservice-tests.jar";
 
     public JUnitJarRunner() {
     }
 
-    public static void main(String[] argv) {
-    	for(String name : AllTestsRunner.findClasses()) {
-            System.out.println(name);
-        }
-    	/*JUnitCore core=new JUnitCore();
-		argv=new String[]{TestDatasetAccessorHTTP.class.getName()};
-		List<Class<?>> classes=new ArrayList<Class<?>>();
-		List<Failure> missingClasses=new ArrayList<Failure>();
-		for (  String each : argv)   try {
-			classes.add(Class.forName(each));
-		}
-		catch (  ClassNotFoundException e) {
-			System.out.println("Could not find class: " + each);
-			Description description=Description.createSuiteDescription(each);
-			Failure failure=new Failure(description,e);
-			missingClasses.add(failure);
-		}
-		core.addListener(new TextListenerOneLine(System.out));
-		Result result=core.run(classes.toArray(new Class<?>[0]));
-		System.exit(result.wasSuccessful() ? 0 : 1);*/
+    public static void addJar(String s) throws Exception {
+        File f = new File(s);
+        URL u = f.toURL();
+        URLClassLoader urlClassLoader = (URLClassLoader) ClassLoader.getSystemClassLoader();
+        Class urlClass = URLClassLoader.class;
+        Method method = urlClass.getDeclaredMethod("addURL", new Class[]{URL.class});
+        method.setAccessible(true);
+        method.invoke(urlClassLoader, new Object[]{u});
     }
 
-    public static class AllTestsRunner extends Suite {
-
-        public AllTestsRunner(final Class<?> clazz) throws InitializationError {
-            super(clazz, findTestClasses());
+    public static void runTest(String jarFile) throws Exception {
+        addJar(jarFile);
+        JUnitCore core=new JUnitCore();
+        Class<?>[] classes=AllTestsRunner.findTestClasses(jarFile);
+        for (Class<?> clazz : classes) {
+            System.out.println(clazz.getName());
         }
+        List<Failure> missingClasses=new ArrayList<Failure>();
+        Result result=core.run(classes);
+        result.wasSuccessful();
+    }
 
-        private static Class<?>[] findTestClasses() {
-            List<String> classFiles = findClasses();
+    public static void main(String[] argv) throws Exception {
+        runTest(JARFILE);
+    }
+
+    public static class AllTestsRunner {
+
+        private static Class<?>[] findTestClasses(String jarFile) {
+            List<String> classFiles = findClasses(jarFile);
             
             List<Class<?>> classes = convertToClasses(classFiles);
             return classes.toArray(new Class[classes.size()]);
         }
 
-        public static final List<String> findClasses() {
+        public static final List<String> findClasses(String jarFile) {
             JarFile jf;
             List<String> classFiles = new ArrayList<String>();
             try {
-                jf = new JarFile(JARFILE);
+                jf = new JarFile(jarFile);
                 for (Enumeration<JarEntry> e = jf.entries(); e.hasMoreElements();) {
                     String name = e.nextElement().getName();
                     System.out.println(name);
