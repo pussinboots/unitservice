@@ -24,10 +24,19 @@ Building
 - Make the war file <code> mvn clean package </code>
 - Deploy the war file in Tomcat 7 with Eclipse or manually
 
+Resources
+--------
+
+- http://localhost:9000/rest/hello/jenkins?project=<name of the jenkins project to run>
+  - start a jenkins build of the specified project and if it is finished return the test result as json
+
+Todo
+--------
+- implements a Jenkins Client based on the Jenkins Remote API 
+
 After Deploy on Application Server
 ----------------------------------
 - The REST WS are accessible under /rest/*
-- Front-End not yet implemented.
 
 Creating a Local Maven Archetype
 --------------------------------
