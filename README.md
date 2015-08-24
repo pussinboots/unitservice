@@ -1,34 +1,21 @@
-jersey-guice-bootstrap
+Unitservice
 ======================
 
-RESTful Web Services Application Sample Project with Jersey 1.18.1 and Google Guice 3.0
+RESTful Web Services that trigger test execution by running jenkins builds and populate the test result.
 
-Dependencies included
----------------------
-- Servlet 2.5
-- Jersey 1.18.1
-- Guice 3.0
-- guice-persist 3.0
-- gson 2.2.4
-- joda-time 2.4
-- JUnit 4.10
 
-Requirements
-------------
-- Java 7
-- Maven 3
-- Tomcat 7
-
-Building
+Scenario
 --------
-- Make the war file <code> mvn clean package </code>
-- Deploy the war file in Tomcat 7 with Eclipse or manually
+
+Trigger test execution easiely with just a rest call and get the test result back to display them for the user.
+Start as a prototyp project to support JUnit test runs and also cucumber test runs. The test run itself is handled by jenkins
+and the build system of choice (Maven, Ant, ...).
 
 Resources
 --------
 
 - http://localhost:9000/rest/hello/jenkins?project=<name of the jenkins project to run>
-  - start a jenkins build of the specified project and if it is finished return the test result as json
+  - start a jenkins build of the specified project and if it is finished return the test result as json.
 
 Todo
 --------
